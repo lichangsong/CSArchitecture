@@ -10,20 +10,6 @@ import Foundation
 import CocoaLumberjack
 extension CSPersistanceTable {
    
-//    func replaceRecord(record: CSPersistanceRecordProtocol) -> Bool {
-//        
-//        guard let params = record.dictionaryRepresentationInTable(self.child!) else {
-//            return false
-//        }
-//        if params.count == 0 {
-//            return false
-//        }
-//        let queryCommand = CSPersistanceQueryCommand(name: child!.databaseName!)
-//        let sql = queryCommand.replaceCommandWithTable(self.child!, record: record)
-//        DDLogVerbose("+++++"+sql)
-//        return queryCommand.database(sql, withArgumentsInDictionary: params)
-//    }
-    
     func replaceRecord(record: CSPersistanceRecordProtocol) -> Bool {
         guard let params = record.dictionaryRepresentationInTable(self.child!) else {
             return false
@@ -42,6 +28,10 @@ extension CSPersistanceTable {
         let sql = queryCommand.insertTable(self.child!.tableName, columnList: paramsColumn)
         DDLogVerbose(sql)
         return queryCommand.database(sql, withArgumentsInDictionary: params)
+    }
+    // TODO: 添加使用insert添加数据的操作数据库的方法
+    func insertRecord(record: CSPersistanceRecordProtocol) -> Bool {
+        return false
     }
     
 }

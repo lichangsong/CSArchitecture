@@ -55,5 +55,18 @@ extension CSPersistanceQueryCommand {
         let sql = "ALTER TABLE \(tableName) ADD COLUMN \(column) \(columnInfo)"
         return self.database(sql,withArgumentsInDictionary: nil)
     }
+    /**
+     修改数据库结构，增加表字段
+     
+     - parameter tableName:  Table表名
+     - parameter column:     字段名
+     - parameter columnInfo: 字段类型
+     
+     - returns: 返回执行是否成功
+     */
+    func alterDropTableColum(tableName: String, withColumName column: String, columnInfo: String) -> Bool {
+        let sql = "ALTER TABLE \(tableName) DROP COLUMN \(column) \(columnInfo)"
+        return self.database(sql,withArgumentsInDictionary: nil)
+    }
 
 }

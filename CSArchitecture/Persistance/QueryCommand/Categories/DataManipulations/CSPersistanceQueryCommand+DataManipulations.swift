@@ -10,36 +10,7 @@ import Foundation
 import CocoaLumberjack
 // 数据操作
 extension CSPersistanceQueryCommand {
-    // TODO : 插入新数据 是否该在Command层引入TableProtocol
-//    func replaceCommandWithTable(table: CSPersistanceTableProtocol, record: CSPersistanceRecordProtocol) -> String {
-//        
-//        guard let params = record.dictionaryRepresentationInTable(table) else {
-//            assert(false, "DatabaseCommand REPLACE params should not be ampty")
-//            return ""
-//        }
-//        var sql = "replace into \(table.tableName) ("
-//        
-//        let content = NSMutableArray()
-//        let values = NSMutableArray()
-//        
-//        for key in params.keys {
-//            content.addObject("\(key)")
-//            values.addObject(":\(key)")
-//        }
-//        sql += "\(content.componentsJoinedByString(","))) values (\(values.componentsJoinedByString(",")))"
-//        DDLogVerbose(sql)
-//        return sql
-//    }
     
-//    - (CTPersistanceQueryCommand *)insertTable:(NSString *)tableName withDataList:(NSArray *)dataList;
-//    - (CTPersistanceQueryCommand *)deleteTable:(NSString *)tableName withCondition:(NSString *)condition conditionParams:(NSDictionary *)conditionParams;
-//    - (CTPersistanceQueryCommand *)updateTable:(NSString *)tableName withData:(NSDictionary *)data condition:(NSString *)condition conditionParams:(NSDictionary *)conditionParams;
-//    func insertTable(tableName: String, dataList: [AnyObject]?) -> String{
-//        
-//        
-//        return ""
-//        
-//    }
     func insertTable(tableName: String, columnList: [String]?) -> String {
         guard let columnList = columnList else{
             return ""
@@ -59,6 +30,10 @@ extension CSPersistanceQueryCommand {
         sql += "\(content.componentsJoinedByString(","))) values (\(values.componentsJoinedByString(",")))"
         DDLogVerbose(sql)
         return sql
+    }
+    // TODO: 添加使用insert方法添加数据库数据的方法
+    func insertTable() {
+        
     }
     
     func deleteTable(tableName: String, withCondition: DatabaseCommandCondition) -> String{
@@ -99,13 +74,5 @@ extension CSPersistanceQueryCommand {
         withCondition.applyConditionToCommand(&sql)
         return sql
     }
-    
-    
-    
-    
-    
-    
-    
 
-    
 }

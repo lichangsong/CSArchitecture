@@ -15,16 +15,19 @@ protocol ViewManagerCallBackDelegate : NSObjectProtocol{
 }
 
 class ViewControllerHelper: NSObject,CSAPIManagerApiCallBackDelegate,CSAPIManagerParamSourceDelegate {
+    
     var messageReformer: MessageReformer?
     var messageManager: MessageManager?
+    // 回调回ViewController
     weak var callBackDelegate: ViewManagerCallBackDelegate?
-
+    // 对应持久化处理
+    var viewDataCenter: ViewControllerDataCenter?
+    
     override init() {
         super.init()
-        messageManager = MessageManager()
-        messageReformer = MessageReformer()
-        messageManager?.callBackDelegate = self
-        messageManager?.paramSource = self
+        
+        initManager()
+        viewDataCenter = ViewControllerDataCenter()
     }
     
     // 网络请求成功后回调
@@ -32,6 +35,8 @@ class ViewControllerHelper: NSObject,CSAPIManagerApiCallBackDelegate,CSAPIManage
         if apiManager.isKindOfClass(MessageManager) {
             let messageModel = apiManager.fetchData(messageReformer!) as! MessageModel
             DDLogVerbose(messageModel.mesArray![0].comment!)
+            // 查询
+            viewDataCenter?.fetchItemListWithFilter(nil)
             
             callBackDelegate!.callBackSuccess()
         }
@@ -63,5 +68,12 @@ class ViewControllerHelper: NSObject,CSAPIManagerApiCallBackDelegate,CSAPIManage
         dic["mk"] = "058a93b373fb62e906bf9bc1ed9bd28f"
         dic["userID"] = "32319"
         return dic
+    }
+    
+    func initManager() {
+        messageManager = MessageManager()
+        messageReformer = MessageReformer()
+        messageManager?.callBackDelegate = self
+        messageManager?.paramSource = self
     }
 }
