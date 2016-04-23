@@ -21,6 +21,7 @@ class ViewControllerDataCenter : NSObject {
         let result = userTable!.fetchWithSQL(nil, condition: condition)
         let record = result![0] as! UserRecode
         
+        
         DDLogVerbose("++++"+record.user_name!)
         
         messageTable = MessageTable()
@@ -35,11 +36,11 @@ class ViewControllerDataCenter : NSObject {
     func testPersistance() {
         // 插入
         let table = UserTable()
-        let newUser = UserRecode(name: "dfsddfdff", uid: "224")
+        let newUser = UserRecode(name: "dfsddfdff", uid: 2)
         table.replaceRecord(newUser)
         // 插入
         let mesTable = MessageTable()
-        let mesRecord = MessageRecode(id: "1", text: "消息")
+        let mesRecord = MessageRecode(id: 1, text: "消息")
         mesTable.replaceRecord(mesRecord)
         
         // 查询

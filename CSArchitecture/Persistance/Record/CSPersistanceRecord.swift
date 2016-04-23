@@ -21,7 +21,7 @@ class CSPersistanceRecord:NSObject,CSPersistanceRecordProtocol {
         return["":""]
     }
     
-    func dictionaryRepresentationUpdateInTable(table: CSPersistanceTableProtocol) -> [String : String]? {
+    func dictionaryRepresentationUpdateInTable(table: CSPersistanceTableProtocol) -> [String : AnyObject]? {
         return["":""]
     }
     /**
@@ -39,13 +39,13 @@ class CSPersistanceRecord:NSObject,CSPersistanceRecordProtocol {
         return columnArray
     }
     /**
-     将字典转换成Record对象
+     将字典转换成Record对象(如果Record的类型为基础类型int,或者 bool时候，会因为基础类型没有setValue方法而引起崩溃，统一使用NSNumber)
      
      - parameter dictionary: 需要转换的数据库字典
      */
     func objectRepresentationWithDictionary(dictionary: [String : AnyObject]) {
         for (key,value) in dictionary {
-            self.setValue(String(value), forKey: key)
+            self.setValue(value, forKey: key)
         }
     }
     

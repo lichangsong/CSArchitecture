@@ -10,14 +10,14 @@ import Foundation
 
 class MessageRecode: CSPersistanceRecord {
     
-    var message_id: String?
+    var message_id: NSNumber?
     var message_text: String?
     
     override init() {
         super.init()
     }
     
-    init(id: String, text: String) {
+    init(id: NSNumber, text: String) {
         self.message_id = id
         self.message_text = text
         super.init()
@@ -33,7 +33,7 @@ class MessageRecode: CSPersistanceRecord {
         }
         return nil
     }
-    override func dictionaryRepresentationUpdateInTable(table: CSPersistanceTableProtocol) -> [String : String]? {
+    override func dictionaryRepresentationUpdateInTable(table: CSPersistanceTableProtocol) -> [String : AnyObject]? {
         if table is MessageTable {
             return [
                 "message_id": self.message_id!,

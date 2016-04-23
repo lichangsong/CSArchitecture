@@ -23,7 +23,6 @@ extension CSPersistanceTable {
         if paramsColumn.count == 0 {
             return false
         }
-        print(paramsColumn);
         let queryCommand = CSPersistanceQueryCommand(name: child!.databaseName!)
         let sql = queryCommand.insertTable(self.child!.tableName, columnList: paramsColumn)
         DDLogVerbose(sql)

@@ -23,7 +23,7 @@ protocol CSPersistanceRecordProtocol : NSObjectProtocol{
      
      - returns: <#return value description#>
      */
-    func dictionaryRepresentationUpdateInTable(table: CSPersistanceTableProtocol) -> [String: String]?
+    func dictionaryRepresentationUpdateInTable(table: CSPersistanceTableProtocol) -> [String: AnyObject]?
     
     func arrayColumnInTable(table: CSPersistanceTableProtocol) -> [String]?
     

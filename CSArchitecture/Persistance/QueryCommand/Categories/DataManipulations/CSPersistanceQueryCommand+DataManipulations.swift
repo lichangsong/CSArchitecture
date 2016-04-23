@@ -48,7 +48,7 @@ extension CSPersistanceQueryCommand {
     
     - returns: 返回操作数据库的字符串
     */
-    func updateTable(tableName: String, withCondition: DatabaseCommandCondition, columnDic: [String : String]?) -> String {
+    func updateTable(tableName: String, withCondition: DatabaseCommandCondition, columnDic: [String : AnyObject]?) -> String {
         guard let columnDic = columnDic else{
             return ""
         }
@@ -57,7 +57,7 @@ extension CSPersistanceQueryCommand {
         }
         var setSQL = ""
         for (key,value) in columnDic {
-            setSQL = setSQL + key + " = '" + value + "',"
+//            setSQL = setSQL + key + " = '" + value + "',"
         }
         var updateSQL = ""
         if columnDic.keys.count > 1 {
