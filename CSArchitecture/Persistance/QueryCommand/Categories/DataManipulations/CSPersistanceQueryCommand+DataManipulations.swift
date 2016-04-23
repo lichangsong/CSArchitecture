@@ -38,10 +38,10 @@ extension CSPersistanceQueryCommand {
         return sql
     }
     
-    //update testTable set user_name = 'sdf' where user_id = 222
     /**
     修改数据库表信息(该方法不会直接调用)
-    
+    update testTable set user_name = 'sdf' where user_id = 222
+    注意: value 需要用单引号引起来
     - parameter tableName:     表名
     - parameter withCondition: 修改条件
     - parameter columnDic:     修改后的数据
@@ -57,7 +57,7 @@ extension CSPersistanceQueryCommand {
         }
         var setSQL = ""
         for (key,value) in columnDic {
-//            setSQL = setSQL + key + " = '" + value + "',"
+            setSQL = setSQL + key + " = " + "'\(value)'" + ","
         }
         var updateSQL = ""
         if columnDic.keys.count > 1 {
