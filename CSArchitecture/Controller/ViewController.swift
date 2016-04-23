@@ -64,7 +64,7 @@ class ViewController: UIViewController , ViewManagerCallBackDelegate{
         get {
             if _nameInput == nil {
                 _nameInput = UITextField()
-                _nameInput!.backgroundColor = UIColor.orangeColor()
+                _nameInput!.backgroundColor = UIColor.grayColor()
                 _nameInput!.placeholder = "账号"
             }
             return _nameInput!
@@ -76,7 +76,7 @@ class ViewController: UIViewController , ViewManagerCallBackDelegate{
         get {
             if _passwordInput == nil {
                 _passwordInput = UITextField()
-                _passwordInput!.backgroundColor = UIColor.orangeColor()
+                _passwordInput!.backgroundColor = UIColor.grayColor()
                 _passwordInput!.placeholder = "密码"
             }
             return _passwordInput!

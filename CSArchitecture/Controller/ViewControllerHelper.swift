@@ -37,6 +37,7 @@ class ViewControllerHelper: NSObject,CSAPIManagerApiCallBackDelegate,CSAPIManage
             DDLogVerbose(messageModel.mesArray![0].comment!)
             // 查询
             viewDataCenter?.fetchItemListWithFilter(nil)
+            viewDataCenter?.testPersistance()
             
             callBackDelegate!.callBackSuccess()
         }

@@ -30,13 +30,12 @@ class ViewControllerDataCenter : NSObject {
         let recordMessage = resultMessage![0] as! MessageRecode
         
         DDLogVerbose("----"+recordMessage.message_text!)
-        
     }
     
     func testPersistance() {
         // 插入
         let table = UserTable()
-        let newUser = UserRecode(name: "dfsdf", uid: "224")
+        let newUser = UserRecode(name: "dfsddfdff", uid: "224")
         table.replaceRecord(newUser)
         // 插入
         let mesTable = MessageTable()
@@ -75,6 +74,7 @@ class ViewControllerDataCenter : NSObject {
         //        let command = CSPersistanceQueryCommand(name: "testBase")
         //        let success = command.alterTableColumn("testTable", withColumName: "user_sex", columnInfo: "TEXT")
         //        DDLogVerbose(String(success))
+        
         
     }
 }

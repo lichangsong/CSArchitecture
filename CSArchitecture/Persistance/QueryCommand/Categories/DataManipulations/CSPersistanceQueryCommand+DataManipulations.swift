@@ -31,10 +31,6 @@ extension CSPersistanceQueryCommand {
         DDLogVerbose(sql)
         return sql
     }
-    // TODO: 添加使用insert方法添加数据库数据的方法
-    func insertTable() {
-        
-    }
     
     func deleteTable(tableName: String, withCondition: DatabaseCommandCondition) -> String{
         var sql = "delete from \(tableName)"

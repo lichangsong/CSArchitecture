@@ -29,9 +29,5 @@ extension CSPersistanceTable {
         DDLogVerbose(sql)
         return queryCommand.database(sql, withArgumentsInDictionary: params)
     }
-    // TODO: 添加使用insert添加数据的操作数据库的方法
-    func insertRecord(record: CSPersistanceRecordProtocol) -> Bool {
-        return false
-    }
     
 }
