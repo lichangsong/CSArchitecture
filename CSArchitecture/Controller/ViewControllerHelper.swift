@@ -41,7 +41,7 @@ class ViewControllerHelper: NSObject,CSAPIManagerApiCallBackDelegate,CSAPIManage
             // 查询
             viewDataCenter?.testPersistance()
             viewDataCenter?.fetchItemListWithFilter(nil)
-           
+            
             callBackDelegate!.callBackSuccess()
         }
     }

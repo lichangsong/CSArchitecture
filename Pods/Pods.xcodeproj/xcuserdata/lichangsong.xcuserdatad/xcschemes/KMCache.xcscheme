@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'BBC772521EAC449122CB9FB3'
+               BlueprintIdentifier = 'E155ABED6F2F5CFAC2A5E7FE'
                BlueprintName = 'KMCache'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'KMCache.framework'>
