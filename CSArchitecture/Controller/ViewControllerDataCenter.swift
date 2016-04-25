@@ -21,23 +21,24 @@ class ViewControllerDataCenter : NSObject {
         let result = userTable!.fetchWithSQL(nil, condition: condition)
         let record = result![0] as! UserRecode
         
+        print(record.user_name!)
         
-        DDLogVerbose("++++"+record.user_name!)
-        
-        messageTable = MessageTable()
-        let conditionMessage = DatabaseCommandCondition()
-        conditionMessage.whereConditions = "message_id >= 0"
-        let resultMessage = messageTable!.fetchWithSQL(nil, condition: conditionMessage)
-        let recordMessage = resultMessage![0] as! MessageRecode
-        
-        DDLogVerbose("----"+recordMessage.message_text!)
+//        messageTable = MessageTable()
+//        let conditionMessage = DatabaseCommandCondition()
+//        conditionMessage.whereConditions = "message_id >= 0"
+//        let resultMessage = messageTable!.fetchWithSQL(nil, condition: conditionMessage)
+//        let recordMessage = resultMessage![0] as! MessageRecode
+//        
+//        DDLogVerbose("----"+recordMessage.message_text!)
     }
-    
     func testPersistance() {
         // 插入
-//        let table = UserTable()
-//        let newUser = UserRecode(name: "dfsddfdff", uid: 2)
-//        table.replaceRecord(newUser)
+        let table = UserTable()
+        let newUser = UserRecode(name: "小花", uid: 22)
+        newUser.user_married = true
+        newUser.user_sex = "男"
+        
+        table.replaceRecord(newUser)
         // 插入
 //        let mesTable = MessageTable()
 //        let mesRecord = MessageRecode(id: 1, text: "消息")
@@ -59,12 +60,12 @@ class ViewControllerDataCenter : NSObject {
 //        DDLogVerbose(String(resultDelete))
         
         // 修改
-        let tableUpdate = UserTable()
-        let userUpdate = UserRecode(name: "你好", uid: 1)
-        let conditionUpdate = DatabaseCommandCondition()
-        conditionUpdate.whereConditions = "user_id = 2"
-        let resultUpdate = tableUpdate.updateRecord(userUpdate, condition: conditionUpdate)
-        DDLogVerbose(String(resultUpdate))
+//        let tableUpdate = UserTable()
+//        let userUpdate = UserRecode(name: "你好", uid: 1)
+//        let conditionUpdate = DatabaseCommandCondition()
+//        conditionUpdate.whereConditions = "user_id = 2"
+//        let resultUpdate = tableUpdate.updateRecord(userUpdate, condition: conditionUpdate)
+//        DDLogVerbose(String(resultUpdate))
         
         // 删除数据库表
 //        let command = CSPersistanceQueryCommand(name: "testBase")

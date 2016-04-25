@@ -7,16 +7,16 @@
 //
 import Foundation
 import KMCache
-
+// 暂时不用改缓存方案改用HanekeSwift
 class CSNetworkCache: NSObject {
-    // TODO: 是否是使用KMCache
+    
     static let memoryCache = CSNetworkCache()
     private let cache = KMCache(type: .ReleaseByTime)
     
     override init() {
         super.init()
         
-        self.cache.needRefreshCacheWhenUsed = false
+        self.cache.needRefreshCacheWhenUsed = true
         self.cache.maxCount = 2000
     }
     // 根据key存储缓存

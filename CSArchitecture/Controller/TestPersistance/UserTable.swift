@@ -26,6 +26,8 @@ class UserTable : CSPersistanceTable,CSPersistanceTableProtocol {
             return [
                 "user_id": "Integer primary key",
                 "user_name": "text default NULL"
+//                "user_married": "Boolean deault false",
+//                "user_sex": "text dafault NULL"
             ]
         }
     }

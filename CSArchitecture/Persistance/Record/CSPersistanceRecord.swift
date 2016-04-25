@@ -9,13 +9,7 @@
 import Foundation
 import CocoaLumberjack
 class CSPersistanceRecord:NSObject,CSPersistanceRecordProtocol {
-    /**
-     获取对应的Table表的结构信息(用于插入数据)
-     
-     - parameter table: 遵循CSPersistanceTableProtocol的table
-     
-     - returns: 表的结构信息字典
-     */
+
     func dictionaryRepresentationInTable(table: CSPersistanceTableProtocol) -> [String: AnyObject]? {
         
         return["":""]
@@ -25,7 +19,7 @@ class CSPersistanceRecord:NSObject,CSPersistanceRecordProtocol {
         return["":""]
     }
     /**
-     获取对应的Table表需要插入的字段名数组
+     获取对应的Table表需要插入的字段名数组(默认插入数据库表的全部字段)
      
      - parameter table: 遵循CSPersistanceTableProtocol的table
      

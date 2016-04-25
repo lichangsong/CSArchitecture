@@ -8,6 +8,8 @@
 
 import Foundation
 import Alamofire
+import Haneke
+import SwiftyJSON
 
 enum CSAPIManagerErrorType : Int {
     case Default      //没有产生过API请求，这个是manager的默认状态。
@@ -28,7 +30,8 @@ class CSAPIBaseManager: NSObject{
     // 请求
     private var request: Request?
     // 请求返回的数据
-    private var data: [String: AnyObject]?
+//    private var data: [String: AnyObject]?
+    private var data: SwiftyJSON.JSON!
     // 请求URL
     private var urlString: String?
     // 请求参数
@@ -43,6 +46,8 @@ class CSAPIBaseManager: NSObject{
     weak var callBackDelegate: CSAPIManagerApiCallBackDelegate?
     // 请求参数代理
     weak var paramSource: CSAPIManagerParamSourceDelegate?
+    // 缓存类型
+    let cache = Shared.dataCache
     
     // MARK: Initialization
     override init() {
@@ -68,11 +73,28 @@ class CSAPIBaseManager: NSObject{
             return
         }
         // 如果开启缓存,到缓存里面取数据
-        if self.shouldAutoCacheResultWhenSuccess, let value = CSNetworkCache.memoryCache.objectForKey(self.apiURLString()) as? [String : AnyObject] {
-            self.data = value
-            self.callBackDelegate?.ApiManager(self, finishWithOriginData: value)
-            return
+        if self.shouldAutoCacheResultWhenSuccess {
+            cache.fetch(key: self.apiURLString())
+                .onSuccess { data in
+                    do {
+                        let dic = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)
+                        self.data = JSON(dic)
+                    }catch {
+                        
+                    }
+                    self.callBackDelegate?.ApiManager(self, finishWithOriginData: self.data)
+                    return
+                }
+                .onFailure({ (error: NSError?) -> () in
+                    self.netRequest()
+                    return
+            })
+        }else {
+            netRequest()
         }
+    }
+    
+    private func netRequest() {
         self.isLoading = true
         // RealReachability进行真实网络判断
         RealReachability.sharedInstance().currentReachabilityStatus()
@@ -93,28 +115,35 @@ class CSAPIBaseManager: NSObject{
             self.request?.responseJSON{ response in
                 // 网络请求结束
                 self.isLoading = false
-                
-                if let value = response.result.value as? [String: AnyObject] {
-                    // 网络请求成功，返回数据
-                    self.data = value
-                    
-                    self.callBackDelegate?.ApiManager(self, finishWithOriginData: value)
-                    // 缓存存储
-                    if self.shouldAutoCacheResultWhenSuccess {
-                        CSNetworkCache.memoryCache.setObject(value, forKey: self.apiURLString())
-                    }
-                    
-//                    // 根据具体的服务器返回的判断是否成功的key和Value来判断
-//                    if value[CSAPIBaseManager.successKey] as! Int == CSAPIBaseManager.successValue {
-//                        self.callBackDelegate?.ApiManager(self, finishWithOriginData: value)
-//                    }else {
-//                        // TODO: 参数问题
-//                        self.callBackDelegate?.ApiManager(self, failedWithError: CSAPIManagerErrorType.ParamsError)
-//                    }
-                    
-                }else if let error = response.result.error {
+
+                if let error = response.result.error {
                     // 网络请求失败,超时
                     self.callBackDelegate?.ApiManager(self, failedWithError: CSAPIManagerErrorType.Timeout)
+                }else if response.result.value != nil {
+                    
+                    let value = JSON(response.result.value!)
+                    // 网络请求成功，返回数据
+                    self.data = value
+                    self.callBackDelegate?.ApiManager(self, finishWithOriginData: self.data)
+                    
+                    // 缓存存储
+                    if self.shouldAutoCacheResultWhenSuccess {
+                        let dic = response.result.value
+                        var data: NSData?
+                        do {
+                            data = try NSJSONSerialization.dataWithJSONObject(dic!, options: NSJSONWritingOptions.PrettyPrinted)
+                            self.cache.set(value:data!, key: self.apiURLString())
+                        }catch {
+                            
+                        }
+                    }
+                    //                    // 根据具体的服务器返回的判断是否成功的key和Value来判断
+                    //                    if value[CSAPIBaseManager.successKey] as! Int == CSAPIBaseManager.successValue {
+                    //                        self.callBackDelegate?.ApiManager(self, finishWithOriginData: value)
+                    //                    }else {
+                    //                        // TODO: 参数问题
+                    //                        self.callBackDelegate?.ApiManager(self, failedWithError: CSAPIManagerErrorType.ParamsError)
+                    //                    }
                 }else {
                     // 未知错误
                     self.callBackDelegate?.ApiManager(self, failedWithError: CSAPIManagerErrorType.Timeout)
@@ -122,12 +151,13 @@ class CSAPIBaseManager: NSObject{
             }
         }
     }
+    
     // 取消请求
     func cancel() -> Void {
         self.request?.cancel()
     }
     // 获取请求的数据
-    func originData() -> [String: AnyObject]? {
+    func originData() -> SwiftyJSON.JSON? {
         return self.data
     }
     

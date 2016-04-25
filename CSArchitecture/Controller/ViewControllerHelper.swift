@@ -8,6 +8,7 @@
 
 import Foundation
 import CocoaLumberjack
+import SwiftyJSON
 
 protocol ViewManagerCallBackDelegate : NSObjectProtocol{
     func callBackSuccess()
@@ -31,7 +32,7 @@ class ViewControllerHelper: NSObject,CSAPIManagerApiCallBackDelegate,CSAPIManage
     }
     
     // 网络请求成功后回调
-    func ApiManager(apiManager: CSAPIBaseManager, finishWithOriginData data: AnyObject) -> Void {
+    func ApiManager(apiManager: CSAPIBaseManager, finishWithOriginData data: JSON) -> Void {
         if apiManager.isKindOfClass(MessageManager) {
             let messageModel = apiManager.fetchData(messageReformer!) as! MessageModel
             DDLogVerbose(messageModel.mesArray![0].comment!)

@@ -10,13 +10,13 @@ import Foundation
 import SwiftyJSON
 class MessageReformer: CSReformer {
     
-    func reformData(manager: CSAPIBaseManager, data: [String: AnyObject]) -> AnyObject {
+    func reformData(manager: CSAPIBaseManager, data: JSON) -> AnyObject {
         
         if manager.isKindOfClass(MessageManager) {
             // data 相关处理(选择处理成Model还是处理成与View匹配的字典格式,暂时使用处理成Model的方式)
-            var messageJSON = JSON(data)
-            
+            var messageJSON = data
             let mesArrJSON = messageJSON["data"]
+            
             var mesArray: [MesModel] = []
             for (index,subJson):(String, JSON) in mesArrJSON {
 //                let mesJSON = mesArrJSON[Int(index)!]

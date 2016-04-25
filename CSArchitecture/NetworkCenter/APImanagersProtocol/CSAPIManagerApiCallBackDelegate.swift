@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 protocol CSAPIManagerApiCallBackDelegate : NSObjectProtocol{
     
     // 网络请求成功后回调
-    func ApiManager(apiManager: CSAPIBaseManager, finishWithOriginData data: AnyObject) -> Void
+    func ApiManager(apiManager: CSAPIBaseManager, finishWithOriginData data: JSON) -> Void
     
     // 网络请求失败后回调
     func ApiManager(apimanager: CSAPIBaseManager, failedWithError error: CSAPIManagerErrorType) -> Void

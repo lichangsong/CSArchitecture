@@ -14,30 +14,24 @@ class UserRecode: CSPersistanceRecord {
     // 变量类型禁止使用基础类型
     var user_id: NSNumber?
     var user_sex: String?
+    var user_married: NSNumber?
     
     override init() {
         super.init()
     }
-    
-//    init(name: String, uid: Int, sex: String) {
-//        self.user_name = name
-//        self.user_id = uid
-//        self.user_sex = sex
-//        super.init()
-//    }
     
     init(name: String, uid: NSNumber) {
         self.user_name = name
         self.user_id = uid
         super.init()
     }
-    
     override func dictionaryRepresentationInTable(table: CSPersistanceTableProtocol) -> [String : AnyObject]? {
-        
         if table is UserTable {
             return [
-                "user_id": self.user_id!,
-                "user_name": self.user_name!
+                "user_id" : self.user_id!,
+                "user_name" : self.user_name!
+//                "user_married" : self.user_married!,
+//                "user_sex" : self.user_sex!
             ]
         }
         return nil
@@ -51,6 +45,5 @@ class UserRecode: CSPersistanceRecord {
         }
         return nil
     }
-    
 }
 
