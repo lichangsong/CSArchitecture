@@ -9,8 +9,11 @@
 import Foundation
 import Alamofire
 import CocoaLumberjack
+import MBProgressHUD
 
 class MessageManager: CSAPIBaseManager,CSAPIManagerDelegate {
+    
+    var showHUDView: UIView?
     // 版本号
     var apiVersion: String {
         get{return ""}
@@ -32,4 +35,14 @@ class MessageManager: CSAPIBaseManager,CSAPIManagerDelegate {
         super.init()
         self.shouldAutoCacheResultWhenSuccess = true
     }
+    
+    func showHUD() {
+        MBProgressHUD.showHUDAddedTo(showHUDView, animated: false)
+    }
+    
+    func hidenHUD() {
+        MBProgressHUD.hideHUDForView(showHUDView, animated: false)
+    }
+    
+    
 }

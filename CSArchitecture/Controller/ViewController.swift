@@ -55,6 +55,8 @@ class ViewController: UIViewController , ViewManagerCallBackDelegate{
         viewControllerHelper = ViewControllerHelper()
         viewControllerHelper?.callBackDelegate = self
         viewControllerHelper?.messageManager?.loadData()
+        viewControllerHelper?.messageManager?.showHUDView = self.view
+        viewControllerHelper?.messageManager?.showHUD()
     }
     
     // MARK: - getters and setters
