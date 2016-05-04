@@ -5,7 +5,6 @@ link_with 'CSArchitecture'
 
 pod 'FMDB'
 pod 'Alamofire', '~> 3.1.0'
-pod 'FMDB'
 pod 'KMCache'
 pod 'XMLDictionary'
 pod 'Ono'
