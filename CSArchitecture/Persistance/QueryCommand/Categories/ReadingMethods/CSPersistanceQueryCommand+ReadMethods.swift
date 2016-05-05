@@ -51,8 +51,12 @@ class DatabaseCommandCondition: NSObject {
         if self.limit != nil {
             command.appendContentsOf(" limit \(self.limit!)")
         }
+        //        if let isDistinct = self.isDistinct where isDistinct {
+        //            command.replaceRange(Range(start: command.startIndex.advancedBy(6), end: command.startIndex.advancedBy(6)), with: " distinct")
+        //        }
+        // swift 3修改
         if let isDistinct = self.isDistinct where isDistinct {
-            command.replaceRange(Range(start: command.startIndex.advancedBy(6), end: command.startIndex.advancedBy(6)), with: " distinct")
+            command.replaceRange(Range(command.startIndex.advancedBy(6)..<command.startIndex.advancedBy(6)), with: " distinct")
         }
     }
 }

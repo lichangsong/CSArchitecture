@@ -18,7 +18,7 @@ class MessageReformer: CSReformer {
             let mesArrJSON = messageJSON["data"]
             
             var mesArray: [MesModel] = []
-            for (index,subJson):(String, JSON) in mesArrJSON {
+            for (_,subJson):(String, JSON) in mesArrJSON {
 //                let mesJSON = mesArrJSON[Int(index)!]
                 let mesJSON = subJson
                 let mesModel = MesModel(comment: mesJSON["comment"].stringValue,

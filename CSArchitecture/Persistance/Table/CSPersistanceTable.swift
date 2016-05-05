@@ -66,7 +66,8 @@ class CSPersistanceTable : NSObject {
         var recordArray:[CSPersistanceRecord] = []
         if dataBaseArray!.count > 0 {
             for item in dataBaseArray! {
-                if record.respondsToSelector(Selector("objectRepresentationWithDictionary:")) {
+//                if record.respondsToSelector(Selector("objectRepresentationWithDictionary:")) {
+                if record.respondsToSelector(#selector(CSPersistanceRecord.objectRepresentationWithDictionary(_:))) {
                     record.objectRepresentationWithDictionary(item)
                     recordArray.append(record)
                 }

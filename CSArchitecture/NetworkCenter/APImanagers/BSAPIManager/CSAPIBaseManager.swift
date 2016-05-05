@@ -116,7 +116,8 @@ class CSAPIBaseManager: NSObject{
                 // 网络请求结束
                 self.isLoading = false
 
-                if let error = response.result.error {
+                if response.result.error != nil {
+//                if let error = response.result.error {
                     // 网络请求失败,超时
                     self.callBackDelegate?.ApiManager(self, failedWithError: CSAPIManagerErrorType.Timeout)
                 }else if response.result.value != nil {

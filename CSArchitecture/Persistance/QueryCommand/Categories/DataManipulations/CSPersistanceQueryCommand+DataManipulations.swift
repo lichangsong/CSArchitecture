@@ -63,7 +63,9 @@ extension CSPersistanceQueryCommand {
         if columnDic.keys.count > 1 {
             let index = setSQL.startIndex.advancedBy(0) //swift 2.0+
             let index2 = setSQL.endIndex.advancedBy(-1) //swift 2.0+
-            let range = Range<String.Index>(start: index,end: index2)
+//            let range = Range<String.Index>(start: index,end: index2)
+            // swift 3.0
+            let range = Range<String.Index>(index..<index2)
             updateSQL = setSQL.substringWithRange(range)
         }
         var sql = "update \(tableName) set \(updateSQL) "
